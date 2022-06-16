@@ -1,0 +1,80 @@
+<section id="signUp" class="">
+    <div class="container w-50 mt-5 pt-5">
+        <form [formGroup]="signUp" (ngSubmit)="signUp.valid&&formData()">
+            <div class="form">
+                <!-- <div class="mod"></div> -->
+                <div class="row mt-5">
+                    <div class="col-md-6">
+                        <input [class.is-valid]="signUp.get('first_name')?.valid" formControlName="first_name"
+                            type="text" placeholder="Enter First Name" class="form-control mt-3" (click)="heightMod()">
+                        <!-- <div *ngIf="signUp.controls['first_name'].errors&&signUp.controls['first_name'].touched" class="alert alert-danger" role="alert"> -->
+                        <div *ngIf="signUp.get('first_name')?.errors&&signUp.get('first_name')?.touched"
+                            class="alert alert-danger mb-3 mt-1 fname-alert" role="alert">
+                            First Name is required
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <input [class.is-valid]="signUp.get('last_name')?.valid" formControlName="last_name" type="text"
+                            placeholder="Enter Last Name" class="form-control mt-3" (click)="heightMod()">
+                        <div *ngIf="signUp.get('last_name')?.errors&&signUp.get('last_name')?.touched"
+                            class="alert alert-danger mb-3 mt-1 lname-alert" role="alert">
+                            Last Name is required
+                        </div>
+                    </div>
+                </div>
+
+
+                <input [class.is-valid]="signUp.get('email')?.valid" formControlName="email" type="email"
+                    placeholder="Enter Email" class="form-control mt-3" (click)="heightMod()">
+                <div *ngIf="signUp.get('email')?.errors&&signUp.get('email')?.touched"
+                    class="alert alert-danger mb-3 mt-1 email-alert" role="alert">
+                    please make sure that you have written a valid email <br> e.g <span
+                        class="fw-bold">example@example.com</span>
+                </div>
+
+
+
+                <input [class.is-valid]="signUp.get('age')?.valid" formControlName="age" type="number"
+                    placeholder="Enter Your Age" class="form-control mt-3" (click)="heightMod()">
+                <div *ngIf="signUp.get('age')?.errors&&signUp.get('age')?.touched" class="alert alert-danger mb-3 mt-1 age-alert"
+                    role="alert">
+                    age is required
+                </div>
+
+
+
+                <!-- <input [class.is-valid]="signUp.get('password')?.valid" formControlName="password" type="password" (click)="passHeightMod()"
+                    placeholder="Enter Password" class="form-control mt-3 "> -->
+
+                <input [class.is-valid]="signUp.get('password')?.valid" formControlName="password" type="password"
+                    placeholder="Enter Password" class="form-control mt-3 " (click)="heightMod()">
+                <div *ngIf="signUp.get('password')?.errors&&signUp.get('password')?.touched"
+                    class="alert alert-danger mt-1 pass-alert" role="alert">
+                    please make sure that your password: <br>
+                    <ul>
+                        <li>min length is 7</li>
+                        <li>max lengthis 10</li>
+                        <li>include Capital letter</li>
+                        <li>include Sympols e.g @,#,%, etc...</li>
+                        <li>include numbers</li>
+                    </ul>
+                </div>
+
+
+                <!-- <button [disabled]="signUp.invalid" [style.backgroundColor]="signUp.invalid?'gray':'#17a2b8'" [class.border-0]="signUp.invalid" class="btn btn-info w-100 text-white mt-3">Sign Up</button> -->
+                <!-- <button [disabled]="signUp.invalid"   [ngStyle]="signUp.invalid?{'background-color': 'gray', 'border-color': 'gray'}: {'background-color': '#17a2b8', 'border-color': '#17a2b8'}" class="btn btn-info w-100 text-white mt-3">Sign Up</button> -->
+                <button [disabled]="signUp.invalid" [ngStyle]="signUp.invalid?isStyleValid:isStyleInvalid"
+                    class="btn btn-info w-100 text-white mt-3">
+                    <span *ngIf="!isClicked">Sign Up</span>
+                    <span *ngIf="isClicked"><i class="fa-solid fa-circle-notch fa-spin"
+                        style="--fa-animation-duration: .7s;"></i> Wait</span>
+                </button>
+                <div *ngIf="isSuccess" class="alert alert-success mt-2 text-center fw-bold">{{resMsg}}</div>
+                <div *ngIf="isFailed" class="alert alert-danger mt-2 text-center fw-bold">{{resMsg}}</div>
+
+
+            </div>
+        </form>
+    </div>
+</section>

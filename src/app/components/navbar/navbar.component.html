@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark  fixed-top px-sm-2 px-md-3 px-lg-5">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><i class="far fa-sticky-note"></i> Notes</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+       
+
+        <li *ngIf="!_AuthService.isLoggedIn()" class="nav-item">
+          <a class="nav-link" routerLink="/signup">Signup</a>
+        </li>
+
+        <li *ngIf="!_AuthService.isLoggedIn()" class="nav-item">
+          <a class="nav-link" routerLink="/signin">Signin</a>
+        </li>
+
+        <li *ngIf="_AuthService.isLoggedIn()" class="nav-item">
+          <a style="cursor: pointer;" class="nav-link" (click)="logout()">logout</a>
+        </li>
+
+
+       
+
+
+      
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- <div class="mod"></div> -->

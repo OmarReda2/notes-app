@@ -1,0 +1,40 @@
+<section id="signIn">
+    <div class="container">
+        <form [formGroup]="signIn" (ngSubmit)="signIn.valid&&formData()">
+            <div class="form w-50">
+
+
+                <input formControlName="email" type="email" placeholder="Enter Email" class="form-control mt-3">
+                <div *ngIf="signIn.get('email')?.errors&&signIn.get('email')?.touched"
+                    class="alert alert-danger mb-3 mt-1" role="alert">
+                    please make sure that you have written a valid email <br> e.g <span
+                        class="fw-bold">example@example.com</span>
+                </div>
+
+
+                <input formControlName="password" type="password" placeholder="Enter Password"
+                    class="form-control mt-3">
+                <div *ngIf="signIn.get('password')?.errors&&signIn.get('password')?.touched"
+                    class="alert alert-danger mt-1 text-center" role="alert">
+                    password is required
+                </div>
+
+
+                <!--  <div *ngIf="signIn.get('password')?.errors&&signIn.get('password')?.touched"
+                    class="alert alert-danger mt-1" role="alert">
+                    please<span class="fw-bold"> include</span> Capital, numbers, and sympols
+                </div> -->
+
+
+
+                <button class="btn btn-info w-100 text-white mt-3">
+                    <span *ngIf="isSigned"><i class="fa-solid fa-circle-notch fa-spin"
+                            style="--fa-animation-duration: .7s;"></i> Wait</span> <span *ngIf="!isSigned">Sign in</span>
+                </button>
+                <div *ngIf="isUser" class="alert alert-danger mt-2 text-center fw-bold">incorrect email or password
+                </div>
+
+            </div>
+        </form>
+    </div>
+</section>

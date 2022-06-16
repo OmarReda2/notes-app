@@ -1,0 +1,300 @@
+<section id="profile" class="pt-5 alert" >
+    <div class="container-fluid pt-5">
+
+        <div *ngIf="!isLoad" class="d-flex justify-content-center align-items-center w-100 vh-100">
+            <div class="col-md-12 text-center text-white">
+                <i class="fa-solid fa-circle-notch fa-spin fa-3x" style="--fa-animation-duration: .7s;"></i>
+            </div>
+        </div>
+
+
+
+        <div
+            class=" vh-100 bg-info bg-opacity-25  position-fixed top-0 end-0 d-flex d-flex justify-content-around align-items-center">
+            <div class="text-end px-3">
+                <div class="d-inline-block text-white mb-4 d-block " data-bs-toggle="modal" data-bs-target="#AddNote"
+                    (click)="resetForm()">
+                    <i class="fa-solid fa-plus add"></i>
+                </div>
+
+                <div data-bs-toggle="modal" data-bs-target="#DeleteAll"
+                    class="bg-transparent d-inline-block text-white">
+                    <i class="fas fa-trash delete"></i>
+                </div>
+            </div>
+        </div>
+
+
+        <div *ngIf="isLoad" class="row">
+            <div *ngFor="let note of allNotes; let i =index" class=" col-12 col-sm-5 col-md-4 col-lg-3 gy-3 "
+                (mouseover)="NOTE_ID2=note._id;" >
+                <div class="basic-note" *ngIf="ExactNote(note._id)"></div>
+                <div  class="p-3 text-center rounded-3 d-flex flex-column justify-content-between align-items-center note note-primary" id="note"
+                  
+                    (mouseover)="showOptions(note._id)" (mouseleave)="hideOptions(note._id)" >
+
+                    <div class="w-100">
+                        <h2>{{note.title}}</h2>
+                        <p>{{note.desc}}</p>
+                       
+                    </div>
+                    <div *ngIf="isUpdated&&currentUpdated==note._id"
+                    class="d-flex justify-content-center align-items-center w-100">
+                    <div class="col-md-12 text-center text-white">
+                        <i class="fa-solid fa-circle-notch fa-spin fa-2x" style="--fa-animation-duration: .7s;"></i>
+                    </div>
+                </div>
+
+
+                    <div *ngIf="isOptionShown&&ExactNote(note._id)"
+                        class="d-flex justify-content-evenly align-items-end w-100 h-100 options ">
+                        <div style="cursor: pointer;" class="rounded-circle icons-option-container"
+                            data-bs-toggle="modal" data-bs-target="#EditNote" (click)="getID(note._id);setValue()">
+                            <i class="fa-solid fa-pen-to-square icons-option" (mouseover)="showIconsInfo('1')"
+                                (mouseleave)="hideIconsInfo('1')"></i>
+                            <div class="rounded-2 px-2 icons-info-1">Edit</div>
+                        </div>
+
+                        <div style="cursor: pointer;" class="rounded-circle icons-option-container"
+                            data-bs-toggle="modal" data-bs-target="#DeleteNote" (click)="getID(note._id)">
+                            <i class="fas fa-trash icons-option" (mouseover)="showIconsInfo('2')"
+                                (mouseleave)="hideIconsInfo('2')"></i>
+                            <div class="rounded-2 px-2 icons-info-2">Delete</div>
+                        </div>
+
+
+                        <div class="dropdown">
+                            <div style="cursor: pointer;" class=" rounded-circle icons-option-container"
+                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+                                aria-labelledby="dropdownMenuButton1" (click)="getID(note._id)">
+                                <i class="fa-solid fa-palette icons-option" (mouseover)="showIconsInfo('3')"
+                                    (mouseleave)="hideIconsInfo('3')" (click)="hideChangeColorLabel()"></i>
+                                <div class="rounded-2 px-2 pb-1 icons-info-3" style="width: 90px;">Change color</div>
+                            </div>
+                           
+                            <div class="dropdown-menu">
+                                <ul class="d-flex justify-content-between list-unstyled">
+                                    <li>
+                                        <a style="cursor: pointer;" class="dropdown-item" (click)="getID(note._id)"
+                                            >
+                                            <div style="height: 15px;width: 15px; background-color: #40454a;"
+                                                class="color-1"></div>
+                                        </a>
+                                    </li>
+
+
+                                    <li>
+                                        <a style="cursor: pointer;" class="dropdown-item" (click)="getID(note._id)"
+                                            >
+                                            <div style="height: 15px;width: 15px; background-color: #084298;"
+                                                class="color-2">
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a style="cursor: pointer;" class="dropdown-item" (click)="getID(note._id)"
+                                            >
+                                            <div style="height: 15px;width: 15px; background-color: #141619;"
+                                                class="color-3">
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a style="cursor: pointer;" class="dropdown-item" (click)="getID(note._id)"
+                                            >
+                                            <div style="height: 15px;width: 15px; background-color: #055160;"
+                                                class="color-4">
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a style="cursor: pointer;" class="dropdown-item" (click)="getID(note._id)"
+                                            >
+                                            <div style="height: 15px;width: 15px; background-color: #664d03;"
+                                                class="color-5">
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a style="cursor: pointer;" class="dropdown-item" (click)="getID(note._id)"
+                                            >
+                                            <div style="height: 15px;width: 15px; background-color: #0f5132;"
+                                                class="color-6">
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a style="cursor: pointer;" class="dropdown-item" (click)="getID(note._id)"
+                                            >
+                                            <div style="height: 15px;width: 15px; background-color: #842029;"
+                                                class="color-7">
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- ==================================================================== Modals ============================================================================ -->
+
+<!------------------------------------------------- Add Note ----------------------------------------------->
+<div class="modal fade" id="AddNote" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <form [formGroup]="AddNote">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Note</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input formControlName="title" type="text" placeholder="Title" class="form-control">
+                            </div>
+                            <div class="col-md-12 my-3">
+                                <textarea formControlName="desc" placeholder="Add Description" cols="30" rows="10"
+                                    class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info text-white" (click)="addData()">
+                        <span *ngIf="isAdded"><i class="fa-solid fa-circle-notch fa-spin"
+                                style="--fa-animation-duration: .7s;"></i></span> Add Note
+                    </button>
+                    <button class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<!------------------------------------------------- /Add Note ----------------------------------------------->
+
+
+
+<!------------------------------------------------- Edit Note ----------------------------------------------->
+<div class="modal fade" id="EditNote" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <!-- <form class="" [formGroup]="AddNote" (ngSubmit)="setValue()"> -->
+        <form class="" [formGroup]="AddNote" >
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Note</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <input formControlName="title" type="text" placeholder="Title"
+                                    class="form-control ">
+                            </div>
+
+
+                            <div class="col-md-12 my-3">
+                                <textarea formControlName="desc" placeholder="Add Description" cols="30" rows="10"
+                                    class="form-control " ></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-info " (click)="editNote()">Save</button>
+                    <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<!------------------------------------------------- /Edit Note ----------------------------------------------->
+
+
+
+<!------------------------------------------------- Delete Note ----------------------------------------------->
+<div class="modal fade" id="DeleteNote" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="text-info text-center">Do you want really to delete ?<br>
+                                process cannot be undone</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" (click)="deleteNote()">
+                    <span *ngIf="isDeleted"><i class="fa-solid fa-circle-notch fa-spin"
+                            style="--fa-animation-duration: .7s;"></i></span> Delete
+                </button>
+                <button type="button" class="btn btn-info text-whiteP" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------------------------- /Delete Note ----------------------------------------------->
+
+
+
+<!------------------------------------------------- Delete AllNote ----------------------------------------------->
+<div class="modal fade" id="DeleteAll" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="text-info text-center">Do you want really to clear all notes ?<br>
+                                process cannot be undone</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" (click)="deleteAll()">
+                    <span *ngIf="isDeleted"><i class="fa-solid fa-circle-notch fa-spin"
+                            style="--fa-animation-duration: .7s;"></i></span> Delete
+                </button>
+                <button type="button" class="btn btn-info text-white" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------------------------- /Delete Note ----------------------------------------------->
